@@ -1,0 +1,56 @@
+#Set MAHOUT LOCAL and Configuration path
+
+export MAHOUT_LOCAL=true
+export MAHOUT_HOME=/home/bigdata/mahout-trunk/bin/
+
+export MAHOUT_CONF_DIR=/home/bigdata/mahout-trunk/src/conf/
+
+
+cd mahout-trunk/
+
+
+
+#Chinese
+
+bin/mahout seqdirectory -c UTF-8 -i /home/bigdata/reviews_Chinese/ -o reviewsChi/reviews-seqfiles
+bin/mahout seq2sparse -i reviewsChi/reviews-seqfiles/ -o reviewsChi/reviews-cvb -wt tf -seq -nv
+
+bin/mahout rowid -i reviewsChi/reviews-cvb/tf-vectors/ -o reviewsChi/reviews-cvb
+
+
+
+#8 topics
+
+##Run LDA, used 8 topics
+bin/mahout cvb -dict reviewsChi/reviews-cvb/dictionary.file-0 -ow -i reviewsChi/reviews-cvb/matrix -o reviewsChi/reviews-topics8 -k 8 -x 10 -dt reviewsChi/topics-output-reviews8 -mt reviewsChi/topics-model-review8
+
+
+
+##Output the top 10 most freqent terms in each topic
+bin/mahout vectordump -i reviewsChi/reviews-topics8/part-m-00000 -d reviewsChi/reviews-cvb/dictionary.file-0 -dt sequencefile --vectorSize 10 -sort true -o reviewsChi/reviews-topics-results/topic_words8.txt
+
+
+
+##Output the document-topic matrix
+bin/mahout vectordump -i reviewsChi/topics-output-reviews8/part-m-00000 -d reviewsChi/reviews-cvb/dictionary.file-0 -dt sequencefile -o reviewsChi/reviews-topics-results/doc_topic8.txt
+
+
+
+
+
+#Nightlife
+
+bin/mahout seqdirectory -c UTF-8 -i /home/bigdata/reviews_Nightlife/ -o reviewsNightlife/reviews-seqfiles
+
+bin/mahout seq2sparse -i reviewsNightlife/reviews-seqfiles/ -o reviewsNightlife/reviews-cvb -wt tf -seq -nv
+
+bin/mahout rowid -i reviewsNightlife/reviews-cvb/tf-vectors/ -o reviewsNightlife/reviews-cvb
+
+
+
+#8 topics
+
+bin/mahout cvb -dict reviewsNightlife/reviews-cvb/dictionary.file-0 -ow -i reviewsNightlife/reviews-cvb/matrix -o reviewsNightlife/reviews-topics8 -k 8 -x 10 -dt reviewsNightlife/topics-output-reviews8 -mt reviewsNightlife/topics-model-review8
+
+
+bin/mahout vectordump -i reviewsNightlife/reviews-topics8/part-m-00000 -d reviewsNightlife/reviews-cvb/dictionary.file-0 -dt sequencefile --vectorSize 10 -sort true -o reviewsNightlife/reviews-topics-results/topic_words8.txt
