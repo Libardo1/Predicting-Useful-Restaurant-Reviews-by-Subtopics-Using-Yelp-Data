@@ -8,7 +8,9 @@ Yu Hua Cheng (yc2911@columbia.edu)
 
 Jingchi Wang (jingchiw@gmail.com)
 
-===
+Language used: R, Python, Mahout
+
+--------------------------------
 
 Code Description:
 
