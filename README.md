@@ -1,10 +1,14 @@
 Predicting Useful Restaurant Reviews by Subtopics Using Yelp Data
 =================================================================
+
 Columbia University
+
 ===
+
 Yu Hua Cheng (yc2911@columbia.edu)
 
 Jingchi Wang (jingchiw@gmail.com)
+
 ===
 
 Code Description:
